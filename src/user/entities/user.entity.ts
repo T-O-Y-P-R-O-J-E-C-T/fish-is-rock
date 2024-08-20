@@ -15,12 +15,6 @@ export class User extends BaseTimeEntity{
   @Column()
   user_password: string
 
-  // @Column()
-  // user_category
-
-  // @Column()
-  // user_favorite_place
-
   @Column()
   user_profile: string
 
