@@ -3,18 +3,18 @@ import { Message } from '../../message/entities/message.entity';
 
 @Entity()
 export class Attachment {
-  @PrimaryGeneratedColumn()
-  attachment_id: number;
+  @PrimaryGeneratedColumn({name: 'attachment_id'})
+  attachmentId: number;
 
   @ManyToOne(type => Message,
-    (message) => message.message_id,
+    (message) => message.messageId,
     { onDelete: 'CASCADE' })
   @JoinColumn({name: 'message_id'})
-  message_id: number;
+  messageId: number;
 
-  @Column()
-  file_url: string;
+  @Column({name: 'file_url'})
+  fileUrl: string;
 
-  @Column()
-  file_type: string;
+  @Column({name: 'file_type'})
+  fileType: string;
 }

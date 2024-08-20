@@ -3,20 +3,20 @@ import { User } from '../../user/entities/user.entity';
 
 @Entity()
 export class Forum {
-  @PrimaryGeneratedColumn()
-  forum_id: number;
+  @PrimaryGeneratedColumn({name: 'forum_id'})
+  forumId: number;
 
-  @ManyToOne(() => User, (user) => user.user_id)
+  @ManyToOne(() => User, (user) => user.userId)
   @JoinColumn({name: "user_id"})
-  user_id: number;
+  userId: number;
 
-  @Column()
-  forum_title: string;
+  @Column({name: 'forum_title'})
+  forumTitle: string;
 
-  @Column()
-  forum_content: string;
+  @Column({name: 'forum_content'})
+  forumContent: string;
 
-  @Column()
-  forum_like: number;
+  @Column({name: 'forum_like'})
+  forumLike: number;
 
 }

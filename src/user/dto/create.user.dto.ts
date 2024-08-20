@@ -1,28 +1,25 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseTimeEntity } from '../../global/entities/global.entities';
+import { User, UserBuilder } from '../entities/user.entity';
 
-@Entity()
-export class User extends BaseTimeEntity{
-  @PrimaryGeneratedColumn({name: 'user_id'})
+export class CreateUserDto {
   userId: number;
-
-  @Column({name: 'user_login'})
   userLogin: string;
-
-  @Column({name: 'user_name'})
-  userName: string
-
-  @Column({name: 'user_password'})
-  userPassword: string
-
-  @Column({name: 'user_profile'})
-  userProfile: string
-
-  @Column({name: 'user_level'})
+  userName: string;
+  userPassword: string;
+  userProfile: string;
   userLevel: string;
 
+  toEntity(): User{
+    return new UserBuilder()
+      .setUserId(this.userId)
+      .setUserLogin(this.userLogin)
+      .setUserName(this.userName)
+      .setUserPassword(this.userPassword)
+      .setUserProfile(this.userProfile)
+      .setUserLevel(this.userLevel)
+      .build();
+  }
+
   constructor(userId: number, userLogin: string, userName: string, userPassword: string, userProfile: string, userLevel: string) {
-    super();
     this.userId = userId;
     this.userLogin = userLogin;
     this.userName = userName;
@@ -32,13 +29,13 @@ export class User extends BaseTimeEntity{
   };
 }
 
-export class UserBuilder{
-  private userId: number;
-  private userLogin: string;
-  private userName: string;
-  private userPassword: string;
-  private userProfile: string;
-  private userLevel: string;
+export class CreateUserDtoBuilder{
+  userId: number;
+  userLogin: string;
+  userName: string;
+  userPassword: string;
+  userProfile: string;
+  userLevel: string;
 
   setUserId(userId: number) {this.userId = userId; return this;};
   setUserLogin(userLogin: string){this.userLogin = userLogin; return this;};
@@ -47,8 +44,8 @@ export class UserBuilder{
   setUserProfile(userProfile: string){this.userProfile = userProfile; return this;};
   setUserLevel(userLevel: string){this.userLevel = userLevel; return this;};
 
-  build(): User{
-    return new User(
+  build(): CreateUserDto{
+    return new CreateUserDto(
       this.userId,
       this.userLogin,
       this.userName,
