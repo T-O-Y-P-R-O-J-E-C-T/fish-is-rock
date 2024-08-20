@@ -8,7 +8,7 @@ export class CreateUserDto {
   userProfile: string;
   userLevel: string;
 
-  toEntity(createUserDto: CreateUserDto): User{
+  toEntity(): User{
     const user = new User();
     user.user_id = this.userId;
     user.user_login = this.userLogin;

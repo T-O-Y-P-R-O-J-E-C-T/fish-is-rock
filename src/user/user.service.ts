@@ -13,7 +13,7 @@ export class UserService {
   ) {}
 
   create(createUserDto: CreateUserDto) {
-    return this.userRepository.save(createUserDto.toEntity(createUserDto));
+    return this.userRepository.save(createUserDto.toEntity());
   }
 
   findAll() {
