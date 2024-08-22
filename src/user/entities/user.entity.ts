@@ -20,25 +20,9 @@ export class User extends BaseTimeEntity{
 
   @Column({name: 'user_level'})
   userLevel: string;
-
-  constructor(userId: number, userLogin: string, userName: string, userPassword: string, userProfile: string, userLevel: string) {
-    super();
-    this.userId = userId;
-    this.userLogin = userLogin;
-    this.userName = userName;
-    this.userPassword = userPassword;
-    this.userProfile = userProfile;
-    this.userLevel = userLevel;
-  };
 }
 
-export class UserBuilder{
-  private userId: number;
-  private userLogin: string;
-  private userName: string;
-  private userPassword: string;
-  private userProfile: string;
-  private userLevel: string;
+export class UserBuilder extends User{
 
   setUserId(userId: number) {this.userId = userId; return this;};
   setUserLogin(userLogin: string){this.userLogin = userLogin; return this;};
@@ -48,13 +32,14 @@ export class UserBuilder{
   setUserLevel(userLevel: string){this.userLevel = userLevel; return this;};
 
   build(): User{
-    return new User(
-      this.userId,
-      this.userLogin,
-      this.userName,
-      this.userPassword,
-      this.userProfile,
-      this.userLevel
-    )
+    const user: User = new User()
+    user.userId = this.userId;
+    user.userLogin = this.userLogin;
+    user.userName = this.userName;
+    user.userPassword = this.userPassword;
+    user.userProfile = this.userProfile;
+    user.userLevel = this.userLevel;
+    return user;
+
   }
 }
