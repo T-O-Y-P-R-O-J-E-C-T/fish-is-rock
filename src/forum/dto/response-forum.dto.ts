@@ -1,4 +1,4 @@
-import { ResponsePublicUser } from '../../user/dto/response-public-user.dto';
+import { ResponsePublicUser } from '../../user/dto/response.public.user.dto';
 
 export class ResponseForumDto {
   forumId: number;

@@ -5,17 +5,17 @@ import { BaseTimeEntity } from '../../global/entities/global.entities';
 
 @Entity()
 export class Message extends BaseTimeEntity{
-  @PrimaryGeneratedColumn()
-  message_id: number;
+  @PrimaryGeneratedColumn({name:'message_id'})
+  messageId: number;
 
-  @ManyToOne(() => User, (user) => user.user_id)
+  @ManyToOne(() => User, (user) => user.userId)
   @JoinColumn({name: "user_id"})
-  user_id: number;
+  userId: number;
 
-  @ManyToOne(() => Chat, (chat) => chat.chat_id)
+  @ManyToOne(() => Chat, (chat) => chat.chatId)
   @JoinColumn({name: "chat_id"})
-  chat_id: number;
+  chatId: number;
 
-  @Column()
-  message_content: string;
+  @Column({name:'message_content'})
+  messageContent: string;
 }

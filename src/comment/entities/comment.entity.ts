@@ -7,7 +7,7 @@ export class Comment extends BaseTimeEntity{
   @PrimaryGeneratedColumn()
   comment_id: number;
 
-  @ManyToOne(type => User, user => user.user_id)
+  @ManyToOne(type => User, user => user.userId)
   @JoinColumn({name: "user_id"})
   user_id: number;
 

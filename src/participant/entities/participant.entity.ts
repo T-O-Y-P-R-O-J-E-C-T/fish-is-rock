@@ -4,13 +4,13 @@ import { User } from '../../user/entities/user.entity';
 
 @Entity()
 export class Participant {
-  @PrimaryColumn()
+  @PrimaryColumn({name: 'chat_id'})
   @ManyToOne(() => Chat,
-      chat => chat.chat_id)
-  chat_id: number;
+      chat => chat.chatId)
+  chatId: number;
 
-  @PrimaryColumn()
+  @PrimaryColumn({name: 'user_id'})
   @ManyToOne(() => User,
-    user => user.user_id)
-  user_id: number;
+    user => user.userId)
+  userId: number;
 }

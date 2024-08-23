@@ -4,9 +4,9 @@ import { BaseTimeEntity } from '../../global/entities/global.entities';
 
 @Entity()
 export class Chat extends BaseTimeEntity{
-  @PrimaryGeneratedColumn()
-  chat_id: number;
+  @PrimaryGeneratedColumn({name: `chat_id`})
+  chatId: number;
 
-  @Column()
-  chat_name: string;
+  @Column({name: 'chat_name'})
+  chatName: string;
 }
