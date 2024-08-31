@@ -1,6 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
 import { BaseTimeEntity } from '../../global/entities/global.entities';
+import { ResponseForumDto, ResponseForumDtoBuilder } from '../dto/response-forum.dto';
 
 @Entity()
 export class Forum extends BaseTimeEntity{
@@ -19,6 +20,15 @@ export class Forum extends BaseTimeEntity{
 
   @Column({name: 'forum_like', default: 0})
   forumLike: number;
+
+  toResponseForumDto(forum: Forum): ResponseForumDto {
+    return new ResponseForumDtoBuilder()
+      .setForumId(this.forumId)
+      .setForumTitle(this.forumTitle)
+      .setForumContent(this.forumContent)
+      .setForumLike(this.forumLike)
+      .build();
+}
 }
 
 export class ForumBuilder extends Forum{

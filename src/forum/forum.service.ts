@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Forum } from './entities/forum.entity';
 import { RequestForumDto } from './dto/request-forum.dto';
+import { ResponseForumDto } from './dto/response-forum.dto';
 
 @Injectable()
 export class ForumService {
@@ -15,9 +16,14 @@ export class ForumService {
   }
   // todo
   // 페이지네이션 적용 예정
-  findAll() {
-    return this.forumRepository.find();
+  async findAll() {
+    const dto = new ResponseForumDto();
+    return await this.forumRepository.find()
+      .then(forums => forums.map(forum => {
+        return dto.toDto(forum);
+      }));
   }
+
 
   findOne(forumId: number) {
     return this.forumRepository.findOne({
