@@ -15,22 +15,16 @@ export class UserService implements UserServiceInterface{
     private readonly userRepository: Repository<User>,
   ) {}
 
-  login(dto: UserLoginDto): Promise<User> {
-    return this.userRepository.findOne({
-      where: {...dto}
-    });
+  async login(dto: UserLoginDto): Promise<ResponsePublicUser> {
+    return new ResponsePublicUser().toDto(
+      await this.userRepository.findOne({
+        where: { ...dto }
+      })
+    );
   }
 
-  create(dto: CreateUserDto): Promise<User> {
-    return this.userRepository.save(dto);
-  }
-
-  findAll() {
-    return `This action returns all user`;
-  }
-
-  findOne(userId: number) {
-    return this.userRepository.findOne({where: { userId }});
+  async create(dto: CreateUserDto): Promise<ResponsePublicUser> {
+    return new ResponsePublicUser().toDto(await this.userRepository.save(dto.toEntity()));
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
@@ -41,8 +35,9 @@ export class UserService implements UserServiceInterface{
     return `This action removes a #${id} user`;
   }
 
-  mypage(id: number): Promise<ResponsePublicUser> {
-    return Promise.resolve(undefined);
+  async mypage(userId: number): Promise<ResponsePublicUser> {
+    return new ResponsePublicUser().toDto(await this.userRepository.findOne({where: { userId }})) ;
+
   }
 
   signup(createUserDto: CreateUserDto): Promise<User> {

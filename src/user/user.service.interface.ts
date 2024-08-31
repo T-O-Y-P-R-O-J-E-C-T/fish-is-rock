@@ -4,7 +4,7 @@ import { ResponsePublicUser } from './dto/response.public.user.dto';
 import { UserLoginDto } from './dto/user.login.dto';
 
 export interface UserServiceInterface{
-    login(id: UserLoginDto):Promise<User>;
+    login(id: UserLoginDto): Promise<ResponsePublicUser>;
     signup(createUserDto: CreateUserDto):Promise<User>;
     mypage(id: number): Promise<ResponsePublicUser>;
 }
