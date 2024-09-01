@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create.user.dto';
 import { UpdateUserDto } from './dto/update.user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,7 +9,7 @@ import { UserLoginDto } from './dto/user.login.dto';
 import { ResponsePublicUser } from './dto/response.public.user.dto';
 
 @Injectable()
-export class UserService implements UserServiceInterface{
+export class UserService implements UserServiceInterface {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
@@ -27,20 +27,54 @@ export class UserService implements UserServiceInterface{
     return new ResponsePublicUser().toDto(await this.userRepository.save(dto.toEntity()));
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const user = await this.userRepository.preload({
+      userId: id,
+      ...updateUserDto,
+    });
+    if (!user) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+    return this.userRepository.save(user);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number) {
+    const result = await this.userRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+    return `User with ID ${id} has been removed`;
   }
 
   async mypage(userId: number): Promise<ResponsePublicUser> {
-    return new ResponsePublicUser().toDto(await this.userRepository.findOne({where: { userId }})) ;
-
+    const user = await this.userRepository.findOne({where: { userId }});
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+    return new ResponsePublicUser().toDto(user);
   }
 
-  signup(createUserDto: CreateUserDto): Promise<User> {
-    return Promise.resolve(undefined);
+  async signup(createUserDto: CreateUserDto): Promise<User> {
+    return this.userRepository.save(createUserDto.toEntity());
+  }
+
+  async getUser(userId: number): Promise<User> {
+    const user = await this.userRepository.findOne({where: { userId }});
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+    return user;
+  }
+
+  async updateUser(updateData: Partial<User>): Promise<User> {
+    const { userId, ...dataToUpdate } = updateData;
+    const user = await this.userRepository.preload({
+      userId: userId,
+      ...dataToUpdate,
+    });
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+    return this.userRepository.save(user);
   }
 }
