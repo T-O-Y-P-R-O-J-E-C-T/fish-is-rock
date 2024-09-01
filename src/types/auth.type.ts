@@ -12,7 +12,7 @@ export interface AccessTokenPayload {
 }
 
 export interface RefreshTokenPayload {
-  userId: string;
+  userLogin: string;
   iat?: number;
   exp?: number;
 }

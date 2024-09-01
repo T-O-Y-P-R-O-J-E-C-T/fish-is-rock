@@ -4,8 +4,9 @@ import { LoginDto } from 'src/dto/auth.dto';
 import { Request, Response } from 'express';
 import { JwtRefreshTokenGuard } from './guard/refreshToken.guard';
 import { JwtAccessTokenGuard } from './guard/accessToken.guard';
+import { log } from 'console';
 
-@Controller('auth')
+@Controller('/api/auth')
 export class AuthController {
 
     constructor(private readonly authService: AuthService) {}
@@ -19,6 +20,7 @@ export class AuthController {
 
     @Post("login")
     async login(@Body() loginDto: LoginDto, @Res({ passthrough: true }) res: Response) {
+        
         // access, refresh token 발급
         const tokenData = await this.authService.login(loginDto);
 
@@ -33,11 +35,11 @@ export class AuthController {
     @UseGuards(JwtRefreshTokenGuard)
     @Post("refresh")
     async refresh(@Req() req: any, @Res({ passthrough: true }) res: Response) {
-        const userId: string = req.user.userId;
+        const userLogin: string = req.user.userId;
         const refreshToken = req.cookies.refresh_token;
 
         // 새로운 access token 발급
-        const tokenData = await this.authService.refresh(userId, refreshToken);
+        const tokenData = await this.authService.refresh(userLogin, refreshToken);
 
         // 쿠키의 access token 교체
         res.setHeader("Authorization", "Bearer " + tokenData.accessToken);

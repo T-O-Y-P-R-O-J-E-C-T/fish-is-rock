@@ -18,8 +18,15 @@ export class User extends BaseTimeEntity{
   @Column({name: 'user_profile'})
   userProfile: string
 
-  @Column({name: 'user_level'})
+  @Column({name: 'user_level',nullable: true})
   userLevel: string;
+
+  @Column({name: 'refresh_token', nullable: true})
+  refreshToken: string;
+
+  @Column({name: 'currentRefreshTokenExp',nullable: true})
+  currentRefreshTokenExp: Date;
+  
 }
 
 export class UserBuilder extends User{
@@ -30,6 +37,8 @@ export class UserBuilder extends User{
   setUserPassword(userPassword: string){this.userPassword = userPassword; return this;};
   setUserProfile(userProfile: string){this.userProfile = userProfile; return this;};
   setUserLevel(userLevel: string){this.userLevel = userLevel; return this;};
+  setRefreshToken(refreshToken: string){this.refreshToken = refreshToken; return this;};
+  setCurrentRefreshTokenExp(currentRefreshTokenExp: Date){this.currentRefreshTokenExp = currentRefreshTokenExp; return this;};
 
   build(): User{
     const user: User = new User()
@@ -39,6 +48,8 @@ export class UserBuilder extends User{
     user.userPassword = this.userPassword;
     user.userProfile = this.userProfile;
     user.userLevel = this.userLevel;
+    user.refreshToken = this.refreshToken;
+    user.currentRefreshTokenExp = this.currentRefreshTokenExp;
     return user;
 
   }

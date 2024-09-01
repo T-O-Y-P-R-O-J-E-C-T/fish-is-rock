@@ -11,14 +11,16 @@ import { CommentModule } from '../comment/comment.module';
 import { ForumModule } from '../forum/forum.module';
 import { MeetingModule } from '../meeting/meeting.module';
 import { ParticipantModule } from '../participant/participant.module';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(dbConfig),
     ConfigModule.forRoot({
-      isGlobal: true
+      isGlobal: true,
     }),
-  AttachmentModule, UserModule,ChatsModule, CommentModule, ForumModule,MeetingModule, ParticipantModule  ],
+    
+  AuthModule,AttachmentModule, UserModule,ChatsModule, CommentModule, ForumModule,MeetingModule, ParticipantModule  ],
   controllers: [AppController],
   providers: [AppService],
 })

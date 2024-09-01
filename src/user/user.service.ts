@@ -58,22 +58,22 @@ export class UserService implements UserServiceInterface {
     return this.userRepository.save(createUserDto.toEntity());
   }
 
-  async getUser(userId: number): Promise<User> {
-    const user = await this.userRepository.findOne({where: { userId }});
+  async getUser(userLogin: string): Promise<User> {
+    const user = await this.userRepository.findOne({where: { userLogin }});
     if (!user) {
-      throw new NotFoundException(`User with ID ${userId} not found`);
+      throw new NotFoundException(`User with ID ${userLogin} not found`);
     }
     return user;
   }
 
   async updateUser(updateData: Partial<User>): Promise<User> {
-    const { userId, ...dataToUpdate } = updateData;
+    const { userLogin, ...dataToUpdate } = updateData;
     const user = await this.userRepository.preload({
-      userId: userId,
+      userLogin,
       ...dataToUpdate,
     });
     if (!user) {
-      throw new NotFoundException(`User with ID ${userId} not found`);
+      throw new NotFoundException(`User with ID ${userLogin} not found`);
     }
     return this.userRepository.save(user);
   }
