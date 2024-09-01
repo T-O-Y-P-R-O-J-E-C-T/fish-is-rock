@@ -1,15 +1,16 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Chat } from '../../chats/entities/chat.entity';
+
 import { User } from '../../user/entities/user.entity';
 import { BaseTimeEntity } from '../../global/entities/global.entities';
 import { FishCodes, RegionCodes } from '../../global/entities/global.code.entity';
+import { Chat } from '../../chat/entities/chat.entity';
 
 @Entity()
 export class Meeting extends BaseTimeEntity{
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Chat, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Chat, { onDelete: 'CASCADE' , lazy: true})
   @JoinColumn({name: "chat_id"})
   chat: Chat;
 

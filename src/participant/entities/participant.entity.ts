@@ -1,6 +1,7 @@
 import { Entity, ManyToOne, PrimaryColumn, Unique } from 'typeorm';
-import { Chat } from '../../chats/entities/chat.entity';
+
 import { User } from '../../user/entities/user.entity';
+import { Chat } from '../../chat/entities/chat.entity';
 
 @Entity()
 export class Participant {
@@ -11,6 +12,6 @@ export class Participant {
 
   @PrimaryColumn({name: 'user_id'})
   @ManyToOne(() => User,
-    user => user.userId)
+    user => user.id)
   userId: number;
 }

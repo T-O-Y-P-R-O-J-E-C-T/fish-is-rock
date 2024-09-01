@@ -1,9 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { CreateMeetingDto } from './dto/create-meeting.dto';
 import { UpdateMeetingDto } from './dto/update-meeting.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Meeting } from './entities/meeting.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class MeetingService {
+  constructor(
+    @InjectRepository(Meeting)
+    private readonly meetingRepository: Repository<Meeting>,
+  ) {}
   create(createMeetingDto: CreateMeetingDto) {
     return 'This action adds a new meeting';
   }

@@ -8,7 +8,7 @@ export class Forum extends BaseTimeEntity{
   @PrimaryGeneratedColumn({name: 'forum_id'})
   id: number;
 
-  @ManyToOne(() => User, (user) => user.forums, {eager: true})
+  @ManyToOne(() => User, (user) => user.forums, {eager: true, nullable: false})
   @JoinColumn({name: "user_id"})
   user: User;
 

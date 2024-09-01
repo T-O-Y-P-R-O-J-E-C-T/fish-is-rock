@@ -35,12 +35,16 @@ export class UserService implements UserServiceInterface{
     return `This action removes a #${id} user`;
   }
 
-  async mypage(userId: number): Promise<ResponsePublicUser> {
-    return new ResponsePublicUser().toDto(await this.userRepository.findOne({where: { userId }})) ;
+  async mypage(id: number): Promise<ResponsePublicUser> {
+    return new ResponsePublicUser().toDto(await this.userRepository.findOne({where: { id }})) ;
 
   }
 
   signup(createUserDto: CreateUserDto): Promise<User> {
     return Promise.resolve(undefined);
+  }
+
+  findOne(id: number) {
+    return this.userRepository.findOne({where: {id}})
   }
 }

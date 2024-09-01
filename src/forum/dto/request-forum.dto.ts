@@ -3,15 +3,15 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class RequestForumDto{
   @ApiProperty({example: 1})
-  userId: number;
-  @ApiProperty({example: 1})
+  id: number;
+  @ApiProperty({example: 'john doe title'})
   forumTitle: string;
-  @ApiProperty({example: 1})
+  @ApiProperty({example: 'john doe description'})
   forumContent: string;
 
   toForum(): Forum{
     return new ForumBuilder()
-      .setId(this.userId)
+      .setId(this.id)
       .setForumTitle(this.forumTitle)
       .setForumContent(this.forumContent)
       .build();
