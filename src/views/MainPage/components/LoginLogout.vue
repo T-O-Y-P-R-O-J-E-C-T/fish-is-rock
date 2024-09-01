@@ -22,7 +22,7 @@
 	padding-bottom: 32px;
 
 	.title {
-		font-size: 26px;
+		font-size: 1.5rem;
 		padding-bottom: 1rem;
 	}
 
@@ -30,18 +30,18 @@
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		margin-bottom: 32px;
+		margin-bottom: 1.5rem;
 
 		div {
 			input {
 				width: 100%;
 				height: 50px;
-				border: 1px solid #dfdfdf;
+				border: 1px solid $color-gray-300;
 				padding: 1rem;
 				font-size: 20px;
 
 				&:first-child {
-					margin-bottom: 24px;
+					margin-bottom: .5rem;
 				}
 			}
 		}
@@ -55,7 +55,7 @@
 		.btn {
 			width: 216px;
 			height: 50px;
-			font-size: 24px;
+			font-size: 1.5rem;
 			position: relative;
 			border-radius: 0.5rem;
 

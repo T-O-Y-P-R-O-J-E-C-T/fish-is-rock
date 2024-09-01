@@ -2,8 +2,8 @@
 	<div class="post-card-wrapper">
 		<div class="post-card-wrapper_header">
 			<div class="tag-container">
-				<Tag title="모집중" mode="status"></Tag>
-				<Tag title="경상남도" mode="location"></Tag>
+				<Badge title="모집중" mode="status"></Badge>
+				<Badge title="경남" mode="location"></Badge>
 			</div>
 			<div class="hits-container">
 				<span>21</span>
@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import Tag from './Tag.vue';
+import Badge from './Badge.vue';
 </script>
 
 <style scoped lang="scss">
@@ -150,8 +150,7 @@ import Tag from './Tag.vue';
 				}
 
 				&:nth-child(3) {
-					background: url(/src/assets/images/icon/postChatting-icon.png)
-						no-repeat;
+					background: url(/src/assets/images/icon/postChatting-icon.png) no-repeat;
 					background-size: contain;
 				}
 			}
@@ -220,8 +219,7 @@ import Tag from './Tag.vue';
 					}
 				}
 
-				.people-counter-container {
-				}
+				.people-counter-container {}
 			}
 		}
 	}

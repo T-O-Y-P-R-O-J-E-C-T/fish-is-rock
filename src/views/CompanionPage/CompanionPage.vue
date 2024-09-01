@@ -6,8 +6,8 @@
 </template>
 
 <script setup lang="ts">
-import CompanionPageHeader from '@/components/companionPage/CompanionPageHeader.vue';
-import PostContainer from '@/components/companionPage/PostContainer.vue';
+import CompanionPageHeader from './components/CompanionPageHeader.vue';
+import PostContainer from './components/PostContainer.vue';
 </script>
 
 <style scoped lang="scss">

@@ -1,0 +1,92 @@
+{
+	"forum": [
+		{
+			"id": 1,
+			"title": "첫번째 게시글입니다.",
+			"forumContent": "첫번째 게시글 컨텐츠입니다.",
+			"location": "경남",
+			"views": 23,
+			"forum_date": "24.99.99"
+		},
+		{
+			"id": 2,
+			"title": "두번째 게시글입니다.",
+			"forumContent": "두번째 게시글 컨텐츠입니다.",
+			"location": "부산",
+			"views": 44,
+			"forum_date": "24.99.99"
+		},
+		{
+			"id": 3,
+			"title": "세번째 게시글입니다.",
+			"forumContent": "세번째 게시글 컨텐츠입니다.",
+			"location": "제주",
+			"views": 77,
+			"forum_date": "24.99.99"
+		},
+		{
+			"id": 4,
+			"title": "네번째 게시글입니다.",
+			"forumContent": "네번째 게시글 컨텐츠입니다.",
+			"location": "인천",
+			"views": 2,
+			"forum_date": "24.99.99"
+		},
+		{
+			"id": 5,
+			"title": "다섯번째 게시글입니다.",
+			"forumContent": "다섯번째 게시글 컨텐츠입니다.",
+			"location": "태안",
+			"views": 17,
+			"forum_date": "24.99.99"
+		},
+		{
+			"id": 6,
+			"title": "여섯번째 게시글입니다.",
+			"forumContent": "여섯번째 게시글 컨텐츠입니다.",
+			"location": "포항",
+			"views": 12,
+			"forum_date": "24.99.99"
+		},
+		{
+			"id": 7,
+			"title": "일곱번째 게시글입니다.",
+			"forumContent": "일곱번째 게시글 컨텐츠입니다.",
+			"location": "포항",
+			"views": 78,
+			"forum_date": "24.99.99"
+		},
+		{
+			"id": 8,
+			"title": "여덟번째 게시글입니다.",
+			"forumContent": "여덟번째 게시글 컨텐츠입니다.",
+			"location": "포항",
+			"views": 99,
+			"forum_date": "24.99.99"
+		},
+		{
+			"id": 9,
+			"title": "아홉번째 게시글입니다.",
+			"forumContent": "아홉번째 게시글 컨텐츠입니다.",
+			"location": "포항",
+			"views": 11,
+			"forum_date": "24.99.99"
+		},
+		{
+			"id": 10,
+			"title": "열번째 게시글입니다.",
+			"forumContent": "열번째 게시글 컨텐츠입니다.",
+			"location": "포항",
+			"views": 42,
+			"forum_date": "24.99.99"
+		},
+		{
+			"id": 11,
+			"title": "열한번째 게시글입니다.",
+			"forumContent": "열한번째 게시글 컨텐츠입니다.",
+			"location": "포항",
+			"views": 12,
+			"forum_date": "24.99.99"
+		}
+	]
+}

@@ -64,17 +64,14 @@ const initMap = () => {
 
 <style lang="scss" scoped>
 .map-container {
-	width: 950px;
-	height: 750px;
-
 	.title {
-		font-size: 26px;
+		font-size: 1.5rem;
 		padding-bottom: 1rem;
 	}
 }
 
 #map {
-	width: 100%;
-	height: 100%;
+	width: 950px;
+	height: 750px;
 }
 </style>

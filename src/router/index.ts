@@ -1,5 +1,5 @@
-import CompanionPage from '@/views/CompanionPage.vue';
-import MainPage from '@/views/MainPage.vue';
+import CompanionPage from '@/views/CompanionPage/CompanionPage.vue';
+import MainPage from '@/views/MainPage/MainPage.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({

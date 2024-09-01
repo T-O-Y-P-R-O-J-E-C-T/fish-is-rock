@@ -18,11 +18,7 @@
 			<div class="header-rigth">
 				<div class="sub-nav">
 					<ul>
-						<li
-							v-for="(item, idx) in subNav"
-							:key="item.title"
-							:class="`sub-nav-item-` + idx"
-						>
+						<li v-for="(item, idx) in subNav" :key="item.title" :class="`sub-nav-item-` + idx">
 							<router-link :to="item.link">{{ item.title }}</router-link>
 						</li>
 					</ul>
@@ -64,6 +60,7 @@ const subNav = [
 			.logo-container {
 				width: 100px;
 				height: 46px;
+				margin-right: 2.5rem;
 
 				.logo {
 					width: 100%;
@@ -80,7 +77,8 @@ const subNav = [
 					display: flex;
 
 					li {
-						padding: 0 3rem;
+						padding: 0 1.5rem;
+						margin-right: 1rem;
 					}
 				}
 			}
@@ -95,6 +93,10 @@ const subNav = [
 						padding: 0 2rem;
 						position: relative;
 
+						a {
+							color: $main-text-disable;
+						}
+
 						&.sub-nav-item-0 {
 							&::before {
 								position: absolute;
@@ -102,8 +104,7 @@ const subNav = [
 								width: 20px;
 								height: 20px;
 								display: block;
-								background: url(/src/assets/images/icon/mypage-icon.png)
-									no-repeat;
+								background: url(/src/assets/images/icon/mypage-icon.png) no-repeat;
 								background-size: 100% 100%;
 								top: 1px;
 								left: 13px;
@@ -117,10 +118,9 @@ const subNav = [
 								width: 20px;
 								height: 20px;
 								display: block;
-								background: url(/src/assets/images/icon/chatting-icon.png)
-									no-repeat;
+								background: url(/src/assets/images/icon/chatting-icon.png) no-repeat;
 								background-size: 100% 100%;
-								top: 1px;
+								top: 3px;
 								left: 13px;
 							}
 						}

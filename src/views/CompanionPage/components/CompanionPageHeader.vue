@@ -2,7 +2,6 @@
 	<div class="CompanionPageHeader">
 		<PostFilter></PostFilter>
 		<CategoryFilter></CategoryFilter>
-		좆같다~
 	</div>
 </template>
 
@@ -14,6 +13,6 @@ import PostFilter from './PostFilter.vue';
 <style scoped>
 .CompanionPageHeader {
 	margin: 40px 0;
-	padding: 123px;
+	padding: 1rem;
 }
 </style>

@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import PostCard from '../ui/PostCard.vue';
+import PostCard from '@/components/ui/PostCard.vue';
 </script>
 
 <style scoped lang="scss">
