@@ -8,7 +8,18 @@ import { AuthService } from "../auth.service";
 
 @Injectable()
 export class JwtRefreshTokenStrategy extends PassportStrategy(Strategy, "refresh_token") {
-
+    // constructor() {
+    //     super({
+    //       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    //       secretOrKey: process.env.JWT_REFRESH_SECRET,
+    //       passReqToCallback: true
+    //     });
+    //   }
+    
+    //   validate(req: Request, payload: any) {
+    //     const refreshToken = req.get('Authorization').replace('Bearer', '').trim();
+    //     return { ...payload, refreshToken };
+    //   }
     constructor(
         private readonly configService: ConfigService,
         private readonly authService: AuthService,
@@ -34,7 +45,7 @@ export class JwtRefreshTokenStrategy extends PassportStrategy(Strategy, "refresh
 
         // 저장된 refresh token과 비교
         const result = await this.authService.compareUserRefreshToken(
-            payload.userId,
+            payload.userLogin,
             refreshToken
         );
         // 결과가 틀렸다면 예외 발생

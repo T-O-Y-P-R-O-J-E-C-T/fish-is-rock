@@ -29,4 +29,15 @@ export class JwtAccessTokenStrategy extends PassportStrategy(Strategy, "access_t
         req.user = payload;
         return payload;
     }
+
+    // constructor() {
+    //     super({
+    //       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    //       secretOrKey: process.env.JWT_ACCESS_SECRET
+    //     });
+    //   }
+    
+    //   async validate(payload: AccessTokenPayload) {
+    //     return payload;
+    //   }
 }

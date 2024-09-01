@@ -7,11 +7,15 @@ import { JwtAccessTokenStrategy } from './strategy/accessToken.strategy';
 import { JwtRefreshTokenStrategy } from './strategy/refreshToken.strategy';
 import { JwtAccessTokenGuard } from './guard/accessToken.guard';
 import { JwtRefreshTokenGuard } from './guard/refreshToken.guard';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     UserModule,
-    JwtModule.register({ global: true })
+    JwtModule.register({
+      secret: process.env.JWT_SECRET || 'default_secret',
+      signOptions: { expiresIn: '60s' },
+    }),
   ],
   controllers: [AuthController],
   providers: [

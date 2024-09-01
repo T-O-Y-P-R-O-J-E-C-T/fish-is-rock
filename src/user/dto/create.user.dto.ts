@@ -22,7 +22,6 @@ export class CreateUserDto {
       .setUserLevel(this.userLevel)
       .build();
   }
-
 }
 
 export class CreateUserDtoBuilder extends CreateUserDto{
