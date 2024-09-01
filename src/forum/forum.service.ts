@@ -25,16 +25,16 @@ export class ForumService {
   }
 
 
-  findOne(forumId: number) {
+  findOne(id: number) {
     return this.forumRepository.findOne({
-      where: { forumId }
+      where: { id }
     })
   }
 
-  remove(forumId: number) {
+  remove(id: number) {
     return this.forumRepository.createQueryBuilder("forum")
       .softDelete()
-      .where("forum.forum_id = :forumId", {forumId })
+      .where("forum.id = :id", { id })
       .execute();
   }
 }

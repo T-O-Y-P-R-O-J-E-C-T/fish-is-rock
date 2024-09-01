@@ -6,7 +6,7 @@ import { ResponseForumDto, ResponseForumDtoBuilder } from '../dto/response-forum
 @Entity()
 export class Forum extends BaseTimeEntity{
   @PrimaryGeneratedColumn({name: 'forum_id'})
-  forumId: number;
+  id: number;
 
   @ManyToOne(() => User, (user) => user.userId)
   @JoinColumn({name: "user_id"})
@@ -23,7 +23,7 @@ export class Forum extends BaseTimeEntity{
 
   toResponseForumDto(forum: Forum): ResponseForumDto {
     return new ResponseForumDtoBuilder()
-      .setForumId(this.forumId)
+      .setId(this.id)
       .setForumTitle(this.forumTitle)
       .setForumContent(this.forumContent)
       .setForumLike(this.forumLike)
@@ -32,7 +32,7 @@ export class Forum extends BaseTimeEntity{
 }
 
 export class ForumBuilder extends Forum{
-  setForumId(forumId: number){this.forumId = forumId; return this;}
+  setId(id: number){this.id = id; return this;}
   setUserId(userId: number){this.userId = userId; return this;};
   setForumTitle(forumTitle: string){this.forumTitle=forumTitle; return this;};
   setForumContent(forumContent: string){this.forumContent=forumContent; return this;};
@@ -40,7 +40,7 @@ export class ForumBuilder extends Forum{
 
   build(): Forum{
     const forum = new Forum();
-    forum.forumId = this.forumId;
+    forum.id = this.id;
     forum.userId = this.userId;
     forum.forumTitle = this.forumTitle;
     forum.forumContent = this.forumContent;
