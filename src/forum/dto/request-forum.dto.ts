@@ -11,7 +11,7 @@ export class RequestForumDto{
 
   toForum(): Forum{
     return new ForumBuilder()
-      .setUserId(this.userId)
+      .setId(this.userId)
       .setForumTitle(this.forumTitle)
       .setForumContent(this.forumContent)
       .build();

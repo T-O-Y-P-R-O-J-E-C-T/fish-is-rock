@@ -8,9 +8,9 @@ export class Forum extends BaseTimeEntity{
   @PrimaryGeneratedColumn({name: 'forum_id'})
   id: number;
 
-  @ManyToOne(() => User, (user) => user.userId)
+  @ManyToOne(() => User, (user) => user.forums, {eager: true})
   @JoinColumn({name: "user_id"})
-  userId: number;
+  user: User;
 
   @Column({name: 'forum_title'})
   forumTitle: string;
@@ -28,12 +28,12 @@ export class Forum extends BaseTimeEntity{
       .setForumContent(this.forumContent)
       .setForumLike(this.forumLike)
       .build();
-}
+  }
 }
 
 export class ForumBuilder extends Forum{
   setId(id: number){this.id = id; return this;}
-  setUserId(userId: number){this.userId = userId; return this;};
+  setUser(user: User){this.user = user; return this;};
   setForumTitle(forumTitle: string){this.forumTitle=forumTitle; return this;};
   setForumContent(forumContent: string){this.forumContent=forumContent; return this;};
   setForumLike(forumLike: number){this.forumLike=forumLike; return this;};
@@ -41,7 +41,7 @@ export class ForumBuilder extends Forum{
   build(): Forum{
     const forum = new Forum();
     forum.id = this.id;
-    forum.userId = this.userId;
+    forum.user = this.user;
     forum.forumTitle = this.forumTitle;
     forum.forumContent = this.forumContent;
     forum.forumLike = this.forumLike;

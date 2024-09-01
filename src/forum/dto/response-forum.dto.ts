@@ -1,6 +1,7 @@
 import { ResponsePublicUser } from '../../user/dto/response.public.user.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import { Forum } from '../entities/forum.entity';
+import { User } from '../../user/entities/user.entity';
 
 export class ResponseForumDto {
   @ApiProperty({example: 1})
@@ -23,6 +24,7 @@ export class ResponseForumDto {
       .setForumContent(forum.forumContent)
       .setForumLike(forum.forumLike)
       .setLastModifiedAt(forum.updated_at)
+      .setUser(forum.user)
       .build();
   }
 }
@@ -33,6 +35,7 @@ export class ResponseForumDtoBuilder extends ResponseForumDto{
   setForumContent(forumContent: string){this.forumContent=forumContent; return this;};
   setForumLike(forumLike: number){this.forumLike=forumLike; return this;};
   setLastModifiedAt(forumModifiedAt: Date){this.lastModifiedAt=forumModifiedAt; return this;};
+  setUser(user: User){this.user = new ResponsePublicUser().toDto(user); return this;}
 
   build(): ResponseForumDto{
     const dto = new ResponseForumDto();
@@ -41,6 +44,7 @@ export class ResponseForumDtoBuilder extends ResponseForumDto{
     dto.forumContent = this.forumContent;
     dto.forumLike = this.forumLike;
     dto.lastModifiedAt = this.lastModifiedAt;
+    dto.user = this.user;
     return dto;
   }
 }

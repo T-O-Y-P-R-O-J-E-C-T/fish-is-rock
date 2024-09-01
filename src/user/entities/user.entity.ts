@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseTimeEntity } from '../../global/entities/global.entities';
+import { Forum } from '../../forum/entities/forum.entity';
 
 @Entity()
 export class User extends BaseTimeEntity{
@@ -20,6 +21,9 @@ export class User extends BaseTimeEntity{
 
   @Column({name: 'user_level'})
   userLevel: string;
+
+  @OneToMany(() => Forum, forum => forum.user)
+  forums: Forum[];
 }
 
 export class UserBuilder extends User{
