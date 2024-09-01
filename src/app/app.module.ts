@@ -6,11 +6,13 @@ import { dbConfig } from '../../dbConfig';
 import { ConfigModule } from '@nestjs/config';
 import { AttachmentModule } from '../attachment/attachment.module';
 import { UserModule } from '../user/user.module';
-import { ChatsModule } from '../chats/chats.module';
-import { CommentModule } from '../comment/comment.module';
+
 import { ForumModule } from '../forum/forum.module';
 import { MeetingModule } from '../meeting/meeting.module';
 import { ParticipantModule } from '../participant/participant.module';
+import { ForumCommentModule } from '../forum/forum.comment.module';
+import { MeetingCommentModule } from '../meeting/meeting.comment.module';
+import { ChatModule } from '../chat/chat.module';
 
 @Module({
   imports: [
@@ -18,7 +20,7 @@ import { ParticipantModule } from '../participant/participant.module';
     ConfigModule.forRoot({
       isGlobal: true
     }),
-  AttachmentModule, UserModule,ChatsModule, CommentModule, ForumModule,MeetingModule, ParticipantModule  ],
+  AttachmentModule, UserModule,ChatModule, MeetingCommentModule, ForumCommentModule, ForumModule,MeetingModule, ParticipantModule  ],
   controllers: [AppController],
   providers: [AppService],
 })

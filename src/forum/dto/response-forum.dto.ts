@@ -1,10 +1,11 @@
 import { ResponsePublicUser } from '../../user/dto/response.public.user.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import { Forum } from '../entities/forum.entity';
+import { User } from '../../user/entities/user.entity';
 
 export class ResponseForumDto {
   @ApiProperty({example: 1})
-  forumId: number;
+  id: number;
   @ApiProperty({example: 'my name is lorem'})
   forumTitle: string;
   @ApiProperty({example: 'forum lorem ipsum'})
@@ -18,29 +19,32 @@ export class ResponseForumDto {
 
   toDto(forum: Forum): ResponseForumDto{
     return new ResponseForumDtoBuilder()
-      .setForumId(forum.forumId)
+      .setId(forum.id)
       .setForumTitle(forum.forumTitle)
       .setForumContent(forum.forumContent)
       .setForumLike(forum.forumLike)
       .setLastModifiedAt(forum.updated_at)
+      .setUser(forum.user)
       .build();
   }
 }
 
 export class ResponseForumDtoBuilder extends ResponseForumDto{
-  setForumId(forumId: number){this.forumId = forumId; return this;}
+  setId(id: number){this.id = id; return this;}
   setForumTitle(forumTitle: string){this.forumTitle=forumTitle; return this;};
   setForumContent(forumContent: string){this.forumContent=forumContent; return this;};
   setForumLike(forumLike: number){this.forumLike=forumLike; return this;};
   setLastModifiedAt(forumModifiedAt: Date){this.lastModifiedAt=forumModifiedAt; return this;};
+  setUser(user: User){this.user = new ResponsePublicUser().toDto(user); return this;}
 
   build(): ResponseForumDto{
     const dto = new ResponseForumDto();
-    dto.forumId = this.forumId;
+    dto.id = this.id;
     dto.forumTitle = this.forumTitle;
     dto.forumContent = this.forumContent;
     dto.forumLike = this.forumLike;
     dto.lastModifiedAt = this.lastModifiedAt;
+    dto.user = this.user;
     return dto;
   }
 }

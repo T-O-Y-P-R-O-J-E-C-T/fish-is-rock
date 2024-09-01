@@ -1,6 +1,5 @@
 import { CreateDateColumn, DeleteDateColumn, Entity, UpdateDateColumn } from 'typeorm';
 
-@Entity()
 export class BaseTimeEntity{
   @CreateDateColumn()
   created_at: Date;

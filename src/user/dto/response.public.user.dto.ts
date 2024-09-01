@@ -4,7 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class ResponsePublicUser {
   @ApiProperty({example: 1})
-  userId: number;
+  id: number;
   @ApiProperty({example: 'john doe'})
   userName: string;
   @ApiProperty({example: 'picture.png'})
@@ -12,7 +12,7 @@ export class ResponsePublicUser {
 
   toDto(user: User): ResponsePublicUser{
     return new ResponsePublicUserBuilder()
-      .setUserId(user.userId)
+      .setId(user.id)
       .setUserName(user.userName)
       .setUserProfile(user.userProfile)
       .build();
@@ -20,12 +20,12 @@ export class ResponsePublicUser {
 }
 
 export class ResponsePublicUserBuilder extends ResponsePublicUser{
-  setUserId(userId: number) {this.userId = userId; return this;};
+  setId(id: number) {this.id = id; return this;};
   setUserName(userName: string) {this.userName = userName; return this;};
   setUserProfile(userProfile: string){this.userProfile = userProfile; return this;};
   build(): ResponsePublicUserBuilder{
     const responsePublicUser = new ResponsePublicUserBuilder();
-    responsePublicUser.userId = this.userId;
+    responsePublicUser.id = this.id;
     responsePublicUser.userName = this.userName;
     responsePublicUser.userProfile = this.userProfile;
     return responsePublicUser;

@@ -1,18 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Forum } from './entities/forum.entity';
+import { Forum, ForumBuilder } from './entities/forum.entity';
 import { RequestForumDto } from './dto/request-forum.dto';
 import { ResponseForumDto } from './dto/response-forum.dto';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class ForumService {
   constructor(
     @InjectRepository(Forum)
     private readonly forumRepository: Repository<Forum>,
+    private userService: UserService
   ) {}
-  create(dto: RequestForumDto): Promise<Forum> {
-    return this.forumRepository.save(dto.toForum());
+  async create(dto: RequestForumDto): Promise<Forum> {
+    const forum: Forum = new ForumBuilder().
+      setUser(await this.userService.findOne(dto.id))
+      .setForumContent(dto.forumContent)
+      .setForumTitle(dto.forumTitle)
+      .build();
+    return this.forumRepository.save(forum);
   }
   // todo
   // 페이지네이션 적용 예정
@@ -25,16 +32,16 @@ export class ForumService {
   }
 
 
-  findOne(forumId: number) {
+  findOne(id: number) {
     return this.forumRepository.findOne({
-      where: { forumId }
+      where: { id }
     })
   }
 
-  remove(forumId: number) {
+  remove(id: number) {
     return this.forumRepository.createQueryBuilder("forum")
       .softDelete()
-      .where("forum.forum_id = :forumId", {forumId })
+      .where("forum.id = :id", { id })
       .execute();
   }
 }

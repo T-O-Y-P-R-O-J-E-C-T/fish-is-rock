@@ -1,0 +1,13 @@
+import { Entity, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+
+@Entity({name: 'fish_codes'})
+export class FishCodes{
+  @PrimaryColumn({type: 'char', length: 3} )
+  code: string;
+}
+
+@Entity({name: 'region_codes'})
+export class RegionCodes{
+  @PrimaryColumn({type: 'char', length: 3} )
+  code: string;
+}
