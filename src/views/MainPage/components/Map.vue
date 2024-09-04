@@ -81,6 +81,7 @@ const initMap = () => {
 		}
 	});
 
+
 	(async function () {
 		try {
 			const response = await fetch('http://localhost:3000/positions');
