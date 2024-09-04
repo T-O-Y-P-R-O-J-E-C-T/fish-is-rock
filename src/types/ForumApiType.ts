@@ -4,5 +4,6 @@ export interface ForumType {
 	forumContent: string;
 	location: string;
 	views: number;
+	like: number;
 	forum_date: string;
 }

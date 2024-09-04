@@ -22,20 +22,23 @@ import type { ForumType } from '@/types/ForumApiType';
 const props = defineProps<{
 	title: string;
 	forumPosts: ForumType[];
+	totalLength: number;
 }>()
 
+const emit = defineEmits(['update:currentPages'])
 
 const currentPages = ref<number>(1);
 
 //게시글의 마지막 페이지 수 구하기
 const postTotalLength = computed(() => {
-	return Math.ceil(forumLength.value / 5);
+	return Math.ceil(props.totalLength / 5);
 });
 
 //post next 버튼
 const nextPostHandler = () => {
 	if (currentPages.value < postTotalLength.value) {
 		currentPages.value++;
+		emit('update:currentPages', currentPages.value);
 	} else {
 		return;
 	}
@@ -47,17 +50,9 @@ const prevPostHandler = () => {
 		return;
 	} else {
 		currentPages.value--;
+		emit('update:currentPages', currentPages.value);
 	}
 }
-
-const forumLength = computed(() => {
-	return props.forumPosts.length;
-})
-
-
-console.log(props.forumPosts);
-
-
 </script>
 
 <style lang="scss" scoped>
@@ -91,6 +86,7 @@ console.log(props.forumPosts);
 
 	.contents-container {
 		width: 100%;
+		min-height: 230px;
 	}
 }
 </style>

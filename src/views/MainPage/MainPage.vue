@@ -8,8 +8,10 @@
 			</div>
 		</div>
 		<div class="post-section">
-			<PostContainer title="지금 핫한 모임" :forumPosts="forumPosts"></PostContainer>
-			<PostContainer title="인기 게시글" :forumPosts="popularPosts"></PostContainer>
+			<PostContainer title="지금 핫한 모임" :forumPosts="popularForum" :totalLength="totalLength"
+				@update:currentPages="updatePopularPage"></PostContainer>
+			<PostContainer title="인기 게시글" :forumPosts="likeForum" :totalLength="totalLength"
+				@update:currentPages="updateLikePage"></PostContainer>
 		</div>
 	</div>
 </template>
@@ -27,10 +29,22 @@ import { storeToRefs } from 'pinia';
 const forumStore = useForumStore();
 
 onMounted(() => {
-	forumStore.fetchForumPosts();
+	forumStore.fetchPopularPostsForum(1);
+	forumStore.fetchLikePostsForum(1);
+	forumStore.fetchTotalForumLength();
 });
 
-const { forumPosts, popularPosts } = storeToRefs(forumStore);
+const { totalLength, likeForum, popularForum } = storeToRefs(forumStore);
+
+// "지금 핫한 모임" 페이지 업데이트
+const updatePopularPage = (newPage: number) => {
+	forumStore.fetchPopularPostsForum(newPage);
+}
+
+// "인기 게시글" 페이지 업데이트
+const updateLikePage = (newPage: number) => {
+	forumStore.fetchLikePostsForum(newPage);
+}
 
 </script>
 
