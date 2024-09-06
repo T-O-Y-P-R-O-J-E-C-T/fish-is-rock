@@ -8,8 +8,8 @@
 			</div>
 		</form>
 		<div class="btn-container">
-			<div class="btn login-btn"><span>로그인</span></div>
 			<div class="btn signin-btn"><span>회원가입</span></div>
+			<div class="btn login-btn"><span>로그인</span></div>
 		</div>
 	</div>
 </template>
@@ -19,7 +19,7 @@
 <style scoped lang="scss">
 .login-container {
 	width: 456px;
-	padding-bottom: 32px;
+	padding-bottom: 2.75rem;
 
 	.title {
 		font-size: 1.5rem;
@@ -38,7 +38,7 @@
 				height: 50px;
 				border: 1px solid $color-gray-300;
 				padding: 1rem;
-				font-size: 20px;
+				font-size: 1rem;
 
 				&:first-child {
 					margin-bottom: .5rem;
@@ -54,23 +54,25 @@
 
 		.btn {
 			width: 216px;
-			height: 50px;
-			font-size: 1.5rem;
-			position: relative;
-			border-radius: 0.5rem;
+			padding: 12px 0;
+			font-size: 20px;
+			text-align: center;
+			border-radius: 4px;
 
 			&.login-btn {
-				background-color: #bae0e8;
-				color: #245e6a;
+				background-color: $color-white-000;
+				color: $main-color-defualt;
+				border: 2px solid $main-color-defualt;
 			}
 
 			&.signin-btn {
-				background-color: #1b8297;
+				background-color: $main-color-defualt;
 				color: #fff;
+				border: 2px solid $main-color-defualt;
 			}
 
 			span {
-				@include position-center(absolute);
+				padding: 12px 0;
 			}
 		}
 	}
