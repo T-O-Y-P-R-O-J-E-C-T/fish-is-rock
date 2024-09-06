@@ -1,4 +1,3 @@
-<!-- eslint-disable prettier/prettier -->
 <template>
 	<section id="header">
 		<header>
@@ -7,14 +6,23 @@
 					<router-link to="/" class="logo"></router-link>
 				</h1>
 				<div class="header-nav">
-					<ul>
-						<li v-for="item in mainNav" :key="item.title">
-							<router-link :to="item.link">{{ item.title }}</router-link>
+					<ul class="header-nav-container">
+						<li v-for="(item, idx) in mainNav" :key="item.titleMenu" @mouseenter="showSubMenu(idx)"
+							@mouseleave="hideSubMenu(idx)">
+							<router-link :to="item.link">{{ item.titleMenu }}</router-link>
+							<div v-if="headersIsVisible[idx] && item.subMenu" class="sub-menu-container">
+								<ul v-for="sub in item.subMenu" :key="sub.subTitle" @mouseenter="subTitleActive"
+									@mouseleave="subTitleInactive">
+									<li class="submenu-title">{{ sub.subTitle }}</li>
+									<li v-for="subItem in sub.subNav" :key="subItem.title">
+										<router-link :to="subItem.link">{{ subItem.title }}</router-link>
+									</li>
+								</ul>
+							</div>
 						</li>
 					</ul>
 				</div>
 			</div>
-			<div class="toggle-nav"></div>
 			<div class="header-rigth">
 				<div class="sub-nav">
 					<ul>
@@ -29,15 +37,66 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+
 const mainNav = [
-	{ title: '홈', link: '/' },
-	{ title: '낚시포럼', link: '/' },
-	{ title: '동출구인', link: '/companionPage' },
+	{ titleMenu: '홈', link: '/' },
+	{
+		titleMenu: '낚시포럼', link: '/', subMenu: [
+			{
+				subTitle: '바다',
+				subNav: [
+					{ title: '루어낚시', link: '/' },
+					{ title: '찌낚시', link: '/' },
+					{ title: '선상낚시', link: '/' },
+					{ title: '좌대낚시', link: '/' },
+				]
+			},
+			{
+				subTitle: '민물',
+				subNav: [
+					{ title: '루어낚시', link: '/' },
+					{ title: '좌대낚시', link: '/' },
+					{ title: '저수지낚시', link: '/' },
+					{ title: '좌대낚시', link: '/' },
+				]
+			},
+			{
+				subTitle: '기타',
+				subNav: [
+					{ title: '루어낚시', link: '/' },
+					{ title: '찌낚시', link: '/' },
+					{ title: '선상낚시', link: '/' },
+					{ title: '좌대낚시', link: '/' },
+				]
+			},
+		]
+	},
+	{ titleMenu: '동출구인', link: '/companionPage' },
 ];
 const subNav = [
 	{ title: '마이페이지', link: '/' },
 	{ title: '채팅창', link: '/' },
 ];
+
+const headersIsVisible = ref<boolean[]>([false, false, false]);
+
+const showSubMenu = (idx: number) => {
+	headersIsVisible.value[idx] = true;
+};
+
+const hideSubMenu = (idx: number) => {
+	headersIsVisible.value[idx] = false;
+}
+
+const subTitleActive = (ev: any) => {
+	ev.target.childNodes[0].classList.add('active');
+};
+
+const subTitleInactive = (ev: any) => {
+	ev.target.childNodes[0].classList.remove('active');
+};
+
 </script>
 
 <style scoped lang="scss">
@@ -73,12 +132,52 @@ const subNav = [
 			}
 
 			.header-nav {
-				ul {
+				.header-nav-container {
 					display: flex;
 
 					li {
 						padding: 0 1.5rem;
 						margin-right: 1rem;
+						position: relative;
+
+						.sub-menu-container {
+							position: absolute;
+							top: 100%;
+							left: 0;
+							width: 1000px;
+							display: flex;
+							flex-direction: row;
+							background-color: rgba(255, 255, 255, 0.95);
+							z-index: 10000;
+
+							ul {
+								display: flex;
+								flex-direction: column;
+								align-items: flex-start;
+								padding: 1.5rem;
+
+								li {
+									width: 100%;
+									margin: 0;
+									padding: 0 .5rem;
+									margin-bottom: .5rem;
+								}
+
+								.submenu-title {
+									font-size: 20px;
+									font-weight: 700;
+									color: $main-color-defualt;
+									margin-bottom: 1rem;
+									border-left: 2px solid transparent;
+
+									&.active {
+										background-color: rgba(233, 248, 251, .6);
+										border-left: 2px solid $main-color-defualt ;
+
+									}
+								}
+							}
+						}
 					}
 				}
 			}

@@ -121,6 +121,6 @@ const initMap = () => {
 
 #map {
 	width: 950px;
-	height: 750px;
+	height: 700px;
 }
 </style>
