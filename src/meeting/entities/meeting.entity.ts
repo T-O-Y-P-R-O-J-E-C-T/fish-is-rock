@@ -16,10 +16,10 @@ export class Meeting extends BaseTimeEntity{
 
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn({name: "user_id"})
-  user_id: number;
+  userId: number;
 
-  @Column({length: 255, nullable: false, default: 0})
-  message_content: string;
+  @Column({length: 255, nullable: false, default: 0, name:'meeting_content'})
+  meetingContent: string;
 
   @Column({default: 0, name: 'meeting_like'})
   meetingLike: number;
@@ -28,11 +28,11 @@ export class Meeting extends BaseTimeEntity{
   departureDay: Date;
 
   @ManyToOne(() => RegionCodes, (regionCodes) => regionCodes.code)
-  @Column({name: 'region_code'})
+  @JoinColumn({name: 'region_code'})
   regionCode: string;
 
   @ManyToOne(() => FishCodes, (fishCodes) => fishCodes.code)
-  @Column({name: 'fish_code'})
+  @JoinColumn({name: 'fish_code'})
   fishCode: string;
 
   @Column({name: 'is_end'})

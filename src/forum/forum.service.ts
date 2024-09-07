@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Between, Repository } from 'typeorm';
 import { Forum, ForumBuilder } from './entities/forum.entity';
 import { RequestForumDto } from './dto/request-forum.dto';
 import { ResponseForumDto } from './dto/response-forum.dto';
 import { UserService } from '../user/user.service';
+import { addDays } from 'date-fns';
 
 @Injectable()
 export class ForumService {
@@ -13,14 +14,16 @@ export class ForumService {
     private readonly forumRepository: Repository<Forum>,
     private userService: UserService
   ) {}
+
   async create(dto: RequestForumDto): Promise<Forum> {
-    const forum: Forum = new ForumBuilder().
-      setUser(await this.userService.findOne(dto.id))
+    return this.forumRepository.save(new ForumBuilder()
+      .setUser(await this.userService.findOne(dto.id))
       .setForumContent(dto.forumContent)
       .setForumTitle(dto.forumTitle)
-      .build();
-    return this.forumRepository.save(forum);
+      .setForumContent(dto.forumCategory)
+      .build());
   }
+
   // todo
   // 페이지네이션 적용 예정
   async findAll() {
@@ -31,11 +34,25 @@ export class ForumService {
       }));
   }
 
-
-  findOne(id: number) {
-    return this.forumRepository.findOne({
-      where: { id }
+  async findHotForum(): Promise<ResponseForumDto[]>{
+    const dto = new ResponseForumDto();
+    return await this.forumRepository.find({
+      where: {
+        created_at: Between(new Date(), addDays(new Date(), -7))
+      },
+      order: {views: 'ASC'},
+      take: 5
     })
+      .then(forums => forums.map(forum => {
+        return dto.toDto(forum);
+      }));
+  }
+
+  async findOne(id: number): Promise<ResponseForumDto> {
+    return new ResponseForumDto()
+      .toDto(await this.forumRepository.findOne(
+        { where: { id }})
+      );
   }
 
   remove(id: number) {

@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { ForumService } from './forum.service';
 import { RequestForumDto } from './dto/request-forum.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ResponseForumDto } from './dto/response-forum.dto';
 
 @ApiTags('포럼 API')
 @Controller('/api/forum')
@@ -22,15 +23,16 @@ export class ForumController {
 
   @Get(':id')
   @ApiOperation({summary: '특정 forum 보기'})
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<ResponseForumDto> {
     // +id 는 문자열을 number로 바꾸는 문법
     return this.forumService.findOne(+id);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateForumDto: UpdateForumDto) {
-  //   return this.forumService.update(+id, updateForumDto);
-  // }
+  @Get('/hot')
+  @ApiOperation({summary: '인기 게시글 (포럼)'})
+  findHotForum(): Promise<ResponseForumDto[]>{
+    return this.forumService.findHotForum();
+  }
 
   @Delete(':id')
   @ApiOperation({summary: '특정 forum 삭제'})

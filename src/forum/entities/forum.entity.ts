@@ -1,7 +1,8 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
 import { BaseTimeEntity } from '../../global/entities/global.entities';
 import { ResponseForumDto, ResponseForumDtoBuilder } from '../dto/response-forum.dto';
+import { CategoryCodes } from '../../global/entities/global.code.entity';
 
 @Entity()
 export class Forum extends BaseTimeEntity{
@@ -21,6 +22,13 @@ export class Forum extends BaseTimeEntity{
   @Column({name: 'forum_like', default: 0})
   forumLike: number;
 
+  @Column({name: 'views', default: 0})
+  views: number;
+
+  @OneToOne(() => CategoryCodes, categoryCodes => categoryCodes.code)
+  @JoinColumn({name: 'category_code'})
+  categoryCode: string;
+
   toResponseForumDto(forum: Forum): ResponseForumDto {
     return new ResponseForumDtoBuilder()
       .setId(this.id)
@@ -37,6 +45,7 @@ export class ForumBuilder extends Forum{
   setForumTitle(forumTitle: string){this.forumTitle=forumTitle; return this;};
   setForumContent(forumContent: string){this.forumContent=forumContent; return this;};
   setForumLike(forumLike: number){this.forumLike=forumLike; return this;};
+  setCategoryCode(categoryCode: string){this.categoryCode=categoryCode; return this;};
 
   build(): Forum{
     const forum = new Forum();
@@ -45,6 +54,8 @@ export class ForumBuilder extends Forum{
     forum.forumTitle = this.forumTitle;
     forum.forumContent = this.forumContent;
     forum.forumLike = this.forumLike;
+    forum.categoryCode = this.categoryCode;
+    forum.views = this.views;
     return forum;
   }
 }
