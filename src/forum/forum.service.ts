@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Between, Repository } from 'typeorm';
 import { Forum, ForumBuilder } from './entities/forum.entity';
 import { RequestForumDto } from './dto/request-forum.dto';
 import { ResponseForumDto } from './dto/response-forum.dto';
 import { UserService } from '../user/user.service';
+import { addDays } from 'date-fns';
 
 @Injectable()
 export class ForumService {
@@ -31,6 +32,19 @@ export class ForumService {
       }));
   }
 
+  async findHotForum(): Promise<ResponseForumDto[]>{
+    const dto = new ResponseForumDto();
+    return await this.forumRepository.find({
+      where: {
+        created_at: Between(new Date(), addDays(new Date(), -7))
+      },
+      order: {views: 'ASC'},
+      take: 5
+    })
+      .then(forums => forums.map(forum => {
+        return dto.toDto(forum);
+      }));
+  }
 
   findOne(id: number) {
     return this.forumRepository.findOne({
