@@ -26,7 +26,7 @@ export class Forum extends BaseTimeEntity{
   views: number;
 
   @OneToOne(() => CategoryCodes, categoryCodes => categoryCodes.code)
-  @Column({name: 'category_code'})
+  @JoinColumn({name: 'category_code'})
   categoryCode: string;
 
   toResponseForumDto(forum: Forum): ResponseForumDto {

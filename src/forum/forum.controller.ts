@@ -23,7 +23,7 @@ export class ForumController {
 
   @Get(':id')
   @ApiOperation({summary: '특정 forum 보기'})
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<ResponseForumDto> {
     // +id 는 문자열을 number로 바꾸는 문법
     return this.forumService.findOne(+id);
   }
