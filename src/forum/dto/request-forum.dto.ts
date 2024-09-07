@@ -8,6 +8,8 @@ export class RequestForumDto{
   forumTitle: string;
   @ApiProperty({example: 'john doe description'})
   forumContent: string;
+  @ApiProperty({example: '루어낚시'})
+  forumCategory: string;
 
   toForum(): Forum{
     return new ForumBuilder()

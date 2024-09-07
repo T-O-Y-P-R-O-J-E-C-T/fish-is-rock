@@ -27,10 +27,7 @@ export class ForumController {
     return this.forumService.findOne(+id);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateForumDto: UpdateForumDto) {
-  //   return this.forumService.update(+id, updateForumDto);
-  // }
+
 
   @Delete(':id')
   @ApiOperation({summary: '특정 forum 삭제'})
