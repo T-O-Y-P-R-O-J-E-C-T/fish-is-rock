@@ -34,7 +34,7 @@ export class ForumService {
       }));
   }
 
-  async findHotForum(): Promise<ForumResponseDto[]>{
+  async findHotMeeting(): Promise<ForumResponseDto[]>{
     const dto = new ForumResponseDto();
     return await this.forumRepository.find({
       where: {

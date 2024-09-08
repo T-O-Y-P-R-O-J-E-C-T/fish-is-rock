@@ -49,6 +49,9 @@ export class Meeting extends BaseTimeEntity{
   @Column({name: 'is_end', default: false})
   isEnd: boolean;
 
+  @Column({default: 0, name: 'views'})
+  views: number;
+
   // end -> true, end -> false
   changeStatus(){
     this.isEnd = !this.isEnd;

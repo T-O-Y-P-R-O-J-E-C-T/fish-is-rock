@@ -21,12 +21,20 @@ export class MeetingController {
     return this.meetingService.findAll();
   }
 
+  @Get("/hot")
+  @ApiOperation({summary: '인기 동출구인'})
+  findHotMeeting(): Promise<MeetingResponseDto[]>{
+    return this.meetingService.findHotMeeting();
+  }
+
   @Get(':id')
+  @ApiOperation({summary: '디테일 동출구인'})
   findOne(@Param('id') id: string) {
     return this.meetingService.findOne(+id);
   }
 
   @Delete(':id')
+  @ApiOperation({summary: '동출구인 삭제'})
   remove(@Param('id') id: string) {
     return this.meetingService.remove(+id);
   }

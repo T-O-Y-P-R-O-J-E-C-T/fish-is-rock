@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Meeting, MeetingBuilder } from './entities/meeting.entity';
-import { Repository } from 'typeorm';
+import { Between, Repository } from 'typeorm';
 import { MeetingRequestDto } from './dto/meeting.request.create.dto';
 import { MeetingResponseDto } from './dto/meeting.response.dto';
 import { UserService } from '../user/user.service';
+import { addDays } from 'date-fns';
 
 @Injectable()
 export class MeetingService {
@@ -47,6 +48,20 @@ export class MeetingService {
         where: {id}
       })
     );
+  }
+
+  async findHotMeeting(): Promise<MeetingResponseDto[]>{
+    const dto = new MeetingResponseDto();
+    return await this.meetingRepository.find({
+      where: {
+        created_at: Between(new Date(), addDays(new Date(), -7))
+      },
+      order: {views: 'ASC'},
+      take: 5
+    })
+      .then(meetings => meetings.map(meeting => {
+        return dto.toDto(meeting);
+      }));
   }
 
   async remove(id: number) {
