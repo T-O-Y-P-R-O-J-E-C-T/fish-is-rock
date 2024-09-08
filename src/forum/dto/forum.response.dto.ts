@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Forum } from '../entities/forum.entity';
 import { User } from '../../user/entities/user.entity';
 
-export class ResponseForumDto {
+export class ForumResponseDto {
   @ApiProperty({example: 1})
   id: number;
   @ApiProperty({example: 'my name is lorem'})
@@ -17,7 +17,7 @@ export class ResponseForumDto {
   @ApiProperty()
   user: ResponsePublicUser;
 
-  toDto(forum: Forum): ResponseForumDto{
+  toDto(forum: Forum): ForumResponseDto{
     return new ResponseForumDtoBuilder()
       .setId(forum.id)
       .setForumTitle(forum.forumTitle)
@@ -29,7 +29,7 @@ export class ResponseForumDto {
   }
 }
 
-export class ResponseForumDtoBuilder extends ResponseForumDto{
+export class ResponseForumDtoBuilder extends ForumResponseDto{
   setId(id: number){this.id = id; return this;}
   setForumTitle(forumTitle: string){this.forumTitle=forumTitle; return this;};
   setForumContent(forumContent: string){this.forumContent=forumContent; return this;};
@@ -37,8 +37,8 @@ export class ResponseForumDtoBuilder extends ResponseForumDto{
   setLastModifiedAt(forumModifiedAt: Date){this.lastModifiedAt=forumModifiedAt; return this;};
   setUser(user: User){this.user = new ResponsePublicUser().toDto(user); return this;}
 
-  build(): ResponseForumDto{
-    const dto = new ResponseForumDto();
+  build(): ForumResponseDto{
+    const dto = new ForumResponseDto();
     dto.id = this.id;
     dto.forumTitle = this.forumTitle;
     dto.forumContent = this.forumContent;

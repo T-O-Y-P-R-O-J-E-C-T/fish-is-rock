@@ -1,7 +1,7 @@
 import { Forum, ForumBuilder } from '../entities/forum.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class RequestForumDto{
+export class ForumRequestDto {
   @ApiProperty({example: 1, description: '유저의 ID'},)
   id: number;
   @ApiProperty({example: 'john doe title'})

@@ -1,18 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMeetingDto } from './dto/create-meeting.dto';
-import { UpdateMeetingDto } from './dto/update-meeting.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Meeting } from './entities/meeting.entity';
+import { Meeting, MeetingBuilder } from './entities/meeting.entity';
 import { Repository } from 'typeorm';
+import { RequestMeetingDto } from './dto/meeting.request.create.dto';
+import { ResponseMeetingDto } from './dto/meeting.response.dto';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class MeetingService {
   constructor(
     @InjectRepository(Meeting)
     private readonly meetingRepository: Repository<Meeting>,
+    private readonly userService: UserService,
   ) {}
-  create(createMeetingDto: CreateMeetingDto) {
-    return 'This action adds a new meeting';
+  async create(dto: RequestMeetingDto): Promise<ResponseMeetingDto> {
+    return new ResponseMeetingDto().toDto(
+      await this.meetingRepository.save(
+        new MeetingBuilder()
+          .setUser(await this.userService.findOne(dto.id))
+          .setMeetingContent(dto.meetingContent)
+          .setMeetingTitle(dto.meetingTitle)
+          .setDepartureDay(dto.departureDay)
+          .setRegionCode(dto.regionCode)
+          .setFishCode(dto.fishCode)
+          .setMeetingPeople(dto.meetingPeople)
+          .setMeetingCurrentPeople(dto.meetingCurrentPeople)
+          .build()
+      )
+    );
   }
 
   findAll() {
@@ -21,10 +36,6 @@ export class MeetingService {
 
   findOne(id: number) {
     return `This action returns a #${id} meeting`;
-  }
-
-  update(id: number, updateMeetingDto: UpdateMeetingDto) {
-    return `This action updates a #${id} meeting`;
   }
 
   remove(id: number) {

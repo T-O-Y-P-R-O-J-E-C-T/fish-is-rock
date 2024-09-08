@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
 import { BaseTimeEntity } from '../../global/entities/global.entities';
-import { ResponseForumDto, ResponseForumDtoBuilder } from '../dto/response-forum.dto';
+import { ForumResponseDto, ResponseForumDtoBuilder } from '../dto/forum.response.dto';
 import { CategoryCodes } from '../../global/entities/global.code.entity';
 
 @Entity()
@@ -29,7 +29,7 @@ export class Forum extends BaseTimeEntity{
   @JoinColumn({name: 'category_code'})
   categoryCode: string;
 
-  toResponseForumDto(forum: Forum): ResponseForumDto {
+  toResponseForumDto(forum: Forum): ForumResponseDto {
     return new ResponseForumDtoBuilder()
       .setId(this.id)
       .setForumTitle(this.forumTitle)
