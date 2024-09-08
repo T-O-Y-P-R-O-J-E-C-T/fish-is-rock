@@ -1,25 +1,26 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseTimeEntity } from '../../global/entities/global.entities';
 import { Forum } from '../../forum/entities/forum.entity';
+import { Meeting } from '../../meeting/entities/meeting.entity';
 
 @Entity()
-export class User extends BaseTimeEntity{
+export class User extends BaseTimeEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({name: 'user_login'})
+  @Column({ name: 'user_login' })
   userLogin: string;
 
-  @Column({name: 'user_name'})
+  @Column({ name: 'user_name' })
   userName: string
 
-  @Column({name: 'user_password'})
+  @Column({ name: 'user_password' })
   userPassword: string
 
-  @Column({name: 'user_profile'})
+  @Column({ name: 'user_profile' })
   userProfile: string
 
-  @Column({name: 'user_level'})
+  @Column({ name: 'user_level' })
   userLevel: string;
 
   @OneToMany(() => Forum, forum => forum.user)

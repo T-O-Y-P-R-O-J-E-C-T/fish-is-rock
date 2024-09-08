@@ -13,6 +13,7 @@ export class MeetingService {
     private readonly meetingRepository: Repository<Meeting>,
     private readonly userService: UserService,
   ) {}
+
   async create(dto: MeetingRequestDto): Promise<MeetingResponseDto> {
     return new MeetingResponseDto().toDto(
       await this.meetingRepository.save(
@@ -30,15 +31,40 @@ export class MeetingService {
     );
   }
 
-  findAll() {
-    return `This action returns all meeting`;
+  async findAll(): Promise<MeetingResponseDto[]> {
+    const meetingResponseDto: MeetingResponseDto = new MeetingResponseDto();
+    return await this.meetingRepository.find()
+      .then(meetings => meetings.map(
+        meeting => {
+          return meetingResponseDto.toDto(meeting);
+        }
+      ))
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} meeting`;
+  async findOne(id: number): Promise<MeetingResponseDto> {
+    return  new MeetingResponseDto().toDto(
+      await this.meetingRepository.findOne({
+        where: {id}
+      })
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} meeting`;
+  async remove(id: number) {
+    const deleteResult = await this.meetingRepository.softDelete(id);
+
+    // 삭제 결과를 리턴합니다.
+    if (deleteResult.affected) {
+      // 삭제된 행이 있을 경우 성공 메시지를 리턴합니다.
+      return {
+        message: `Entity with id ${id} has been soft deleted.`,
+        affectedRows: deleteResult.affected,
+      };
+    } else {
+      // 삭제된 행이 없을 경우 오류 메시지를 리턴합니다.
+      return {
+        message: `Entity with id ${id} not found.`,
+        affectedRows: 0,
+      };
+    }
   }
 }

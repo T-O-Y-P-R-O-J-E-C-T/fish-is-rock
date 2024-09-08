@@ -17,7 +17,7 @@ export class MeetingController {
 
   @Get()
   @ApiOperation({summary: '찾아요 리스트'})
-  findAll() {
+  findAll(): Promise<MeetingResponseDto[]> {
     return this.meetingService.findAll();
   }
 

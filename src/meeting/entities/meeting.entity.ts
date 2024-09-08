@@ -14,7 +14,7 @@ export class Meeting extends BaseTimeEntity{
   @JoinColumn({name: "chat_id"})
   chat: Chat;
 
-  @ManyToOne(() => User, { onDelete: 'CASCADE' })
+  @ManyToOne(() => User, { onDelete: 'CASCADE', eager: true})
   @JoinColumn({name: "user_id"})
   user: User;
 
