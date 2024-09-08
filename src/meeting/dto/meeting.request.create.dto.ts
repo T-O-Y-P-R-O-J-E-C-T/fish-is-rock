@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class RequestMeetingDto{
+export class MeetingRequestDto{
   @ApiProperty({example: 1, description: '유저의 ID'},)
   id: number;
   @ApiProperty({example: 'john doe title'})

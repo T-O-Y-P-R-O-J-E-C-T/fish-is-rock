@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Meeting } from '../entities/meeting.entity';
 import { ResponsePublicUser } from '../../user/dto/response.public.user.dto';
 
-export class ResponseMeetingDto{
+export class MeetingResponseDto{
   @ApiProperty({example: 1, description: '유저의 ID'},)
   user: ResponsePublicUser;
   @ApiProperty({example: 'john doe title'})
@@ -20,7 +20,7 @@ export class ResponseMeetingDto{
   @ApiProperty({example: 1})
   meetingCurrentPeople: number;
 
-  toDto(meeting: Meeting): ResponseMeetingDto{
+  toDto(meeting: Meeting): MeetingResponseDto{
     this.user = new ResponsePublicUser().toDto(meeting.user);
     this.meetingTitle = meeting.meetingTitle;
     this.meetingContent = meeting.meetingContent;

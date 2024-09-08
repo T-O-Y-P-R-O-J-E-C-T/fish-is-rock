@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Meeting, MeetingBuilder } from './entities/meeting.entity';
 import { Repository } from 'typeorm';
-import { RequestMeetingDto } from './dto/meeting.request.create.dto';
-import { ResponseMeetingDto } from './dto/meeting.response.dto';
+import { MeetingRequestDto } from './dto/meeting.request.create.dto';
+import { MeetingResponseDto } from './dto/meeting.response.dto';
 import { UserService } from '../user/user.service';
 
 @Injectable()
@@ -13,8 +13,8 @@ export class MeetingService {
     private readonly meetingRepository: Repository<Meeting>,
     private readonly userService: UserService,
   ) {}
-  async create(dto: RequestMeetingDto): Promise<ResponseMeetingDto> {
-    return new ResponseMeetingDto().toDto(
+  async create(dto: MeetingRequestDto): Promise<MeetingResponseDto> {
+    return new MeetingResponseDto().toDto(
       await this.meetingRepository.save(
         new MeetingBuilder()
           .setUser(await this.userService.findOne(dto.id))

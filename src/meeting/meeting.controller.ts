@@ -1,7 +1,8 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { MeetingService } from './meeting.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { RequestMeetingDto } from './dto/meeting.request.create.dto';
+import { MeetingRequestDto } from './dto/meeting.request.create.dto';
+import { MeetingResponseDto } from './dto/meeting.response.dto';
 
 @ApiTags('동출구인 API')
 @Controller('/api/meeting')
@@ -10,12 +11,12 @@ export class MeetingController {
 
   @Post()
   @ApiOperation({summary: '찾아요 글 작성'})
-  create(@Body() dto: RequestMeetingDto) {
-    console.log(dto);
+  create(@Body() dto: MeetingRequestDto): Promise<MeetingResponseDto> {
     return this.meetingService.create(dto);
   }
 
   @Get()
+  @ApiOperation({summary: '찾아요 리스트'})
   findAll() {
     return this.meetingService.findAll();
   }
