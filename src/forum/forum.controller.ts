@@ -31,7 +31,7 @@ export class ForumController {
   @Get('/hot')
   @ApiOperation({summary: '인기 게시글 (포럼)'})
   findHotForum(): Promise<ForumResponseDto[]>{
-    return this.forumService.findHotForum();
+    return this.forumService.findHotMeeting();
   }
 
   @Delete(':id')
