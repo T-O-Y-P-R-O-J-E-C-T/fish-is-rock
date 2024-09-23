@@ -15,6 +15,12 @@ export class UserService implements UserServiceInterface {
     private readonly userRepository: Repository<User>,
   ) {}
 
+  async findOne(id: number): Promise<User> {
+    return await this.userRepository.findOne({
+      where: { id }
+    });
+  }
+
   async login(dto: UserLoginDto): Promise<ResponsePublicUser> {
     return new ResponsePublicUser().toDto(
       await this.userRepository.findOne({
@@ -29,7 +35,7 @@ export class UserService implements UserServiceInterface {
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     const user = await this.userRepository.preload({
-      userId: id,
+      id: id,
       ...updateUserDto,
     });
     if (!user) {
@@ -46,10 +52,10 @@ export class UserService implements UserServiceInterface {
     return `User with ID ${id} has been removed`;
   }
 
-  async mypage(userId: number): Promise<ResponsePublicUser> {
-    const user = await this.userRepository.findOne({where: { userId }});
+  async mypage(id: number): Promise<ResponsePublicUser> {
+    const user = await this.userRepository.findOne({where: { id }});
     if (!user) {
-      throw new NotFoundException(`User with ID ${userId} not found`);
+      throw new NotFoundException(`User with ID ${id} not found`);
     }
     return new ResponsePublicUser().toDto(user);
   }

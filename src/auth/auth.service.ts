@@ -35,7 +35,7 @@ export class AuthService {
         
         // 유저 refresh_token 업데이트
         await this.setUserCurrentRefreshToken(
-            user.userId,
+            user.id,
             refreshToken
         );
         console.log("not Err");
@@ -118,7 +118,7 @@ export class AuthService {
     // refresh_token 발급
     async createRefreshToken(user: User): Promise<string> {
         const payload = {
-            userId: user.userId
+            userId: user.id
         };
 
         const refreshToken = await this.jwtService.signAsync(
@@ -162,7 +162,7 @@ export class AuthService {
 
         // DB 업데이트
         await this.userService.updateUser({
-            userId: userId,
+            id: userId,
             refreshToken: hashedRefreshToken,
             currentRefreshTokenExp: refreshTokenExp
         });
